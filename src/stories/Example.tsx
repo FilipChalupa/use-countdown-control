@@ -3,7 +3,7 @@ import { useCountdownControl } from '../useCountdownControl'
 import './global.css'
 
 export const Example: FunctionComponent = () => {
-	const { start, pause, stop, time } = useCountdownControl()
+	const { start, pause, resume, stop, time, isRunning } = useCountdownControl()
 	const [input, setInput] = useState('60')
 	const niceTime = useMemo(() => {
 		const p = (number: number) => number.toString().padStart(2, '0')
@@ -19,7 +19,7 @@ export const Example: FunctionComponent = () => {
 			<form
 				onSubmit={(event) => {
 					event.preventDefault()
-					start(parseInt(input))
+					start(parseInt(input, 10))
 				}}
 			>
 				<label>
@@ -39,16 +39,22 @@ export const Example: FunctionComponent = () => {
 			<button
 				type="button"
 				onClick={() => {
-					pause()
+					if (isRunning) {
+						pause()
+					} else {
+						resume()
+					}
 				}}
+				disabled={time.secondsTotal === 0}
 			>
-				Pause
+				{isRunning ? 'Pause' : 'Resume'}
 			</button>
 			<button
 				type="button"
 				onClick={() => {
 					stop()
 				}}
+				disabled={time.secondsTotal === 0}
 			>
 				Stop
 			</button>
