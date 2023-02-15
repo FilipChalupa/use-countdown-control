@@ -1,0 +1,28 @@
+body {
+	font-family: sans-serif;
+	max-width: 37rem;
+	margin-inline: auto;
+}
+
+@keyframes flash {
+	0% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 1;
+	}
+}
+
+time {
+	display: block;
+	margin-bottom: 1rem;
+	font-size: 2.5rem;
+}
+
+time span {
+	animation: flash 1s step-end;
+}
+
+form {
+	display: contents;
+}
