@@ -1,6 +1,6 @@
 {
 	"name": "use-countdown-control",
-	"version": "1.0.3",
+	"version": "0.0.0",
 	"description": "Use countdown control hook.",
 	"main": "./dist/index.js",
 	"module": "./dist/index.es.js",
