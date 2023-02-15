@@ -16,7 +16,10 @@ export const useCountdownControl = () => {
 		setTime(time)
 		setIsRunning(time.secondsTotal !== 0)
 	}, [])
-	const countdown = useMemo(() => countdownControl(handleTimeChange), [])
+	const countdown = useMemo(
+		() => countdownControl(handleTimeChange),
+		[handleTimeChange],
+	)
 	const resume = useCallback(() => {
 		countdown.start(time.secondsTotal)
 	}, [countdown, time.secondsTotal])
