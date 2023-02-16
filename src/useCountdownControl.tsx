@@ -1,7 +1,13 @@
-import { countdownControl, Time } from 'countdown-control'
+import {
+	countdownControl,
+	secondsToTime,
+	Time,
+	timeToSeconds,
+	TimeWithTotal,
+} from 'countdown-control'
 import { useCallback, useMemo, useState } from 'react'
 
-const zero: Time = {
+const zero: TimeWithTotal = {
 	days: 0,
 	hours: 0,
 	minutes: 0,
@@ -9,10 +15,20 @@ const zero: Time = {
 	secondsTotal: 0,
 }
 
-export const useCountdownControl = () => {
-	const [time, setTime] = useState<Time>(zero)
+export const useCountdownControl = (initialTime?: number | Partial<Time>) => {
+	const [time, setTime] = useState<TimeWithTotal>(() => {
+		if (initialTime === undefined) {
+			return zero
+		}
+		const secondsTotal =
+			typeof initialTime === 'number' ? initialTime : timeToSeconds(initialTime)
+		return {
+			...secondsToTime(secondsTotal),
+			secondsTotal,
+		}
+	})
 	const [isRunning, setIsRunning] = useState(false)
-	const handleTimeChange = useCallback((time: Time) => {
+	const handleTimeChange = useCallback((time: TimeWithTotal) => {
 		setTime(time)
 		setIsRunning(time.secondsTotal !== 0)
 	}, [])

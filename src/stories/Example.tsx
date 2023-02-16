@@ -3,8 +3,9 @@ import { useCountdownControl } from '../useCountdownControl'
 import './global.css'
 
 export const Example: FunctionComponent = () => {
-	const { start, pause, resume, stop, time, isRunning } = useCountdownControl()
-	const [input, setInput] = useState('60')
+	const { start, pause, resume, stop, time, isRunning } =
+		useCountdownControl(60)
+	const [input, setInput] = useState(time.secondsTotal.toString())
 	const niceTime = useMemo(() => {
 		const p = (number: number) => number.toString().padStart(2, '0')
 		return `${p(time.days)}:${p(time.hours)}:${p(time.minutes)}:${p(
